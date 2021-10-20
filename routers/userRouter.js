@@ -21,6 +21,7 @@ Route.get("/admin/protectedData", passport.authenticate('jwt', {session: false})
 
 //Check auth status everytime front-end app refreshes
 Route.get("/authenticated", passport.authenticate('jwt', {session: false}),userController.authenticated)
+Route.get("/getme", passport.authenticate('jwt', {session: false}),userController.getme)
 
 //Logout need authenticate first because only authenticated user that can log out.
 Route.get("/logout", passport.authenticate('jwt', {session: false}), userController.logout)

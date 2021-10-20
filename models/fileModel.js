@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const FileSchema = new mongoose.Schema({
     type: {
-        enum: ["pdf","audio", "print"],
+        enum: ["pdf","audio", "printed"],
         required: true,
         type: String
     },

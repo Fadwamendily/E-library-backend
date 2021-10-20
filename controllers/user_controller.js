@@ -38,8 +38,8 @@ module.exports = {
         })
     },
     login: (req, res) => {
-        const { id, email, role } = req.user;
-        const token = signToken(id);
+        const { _id, email, role } = req.user;
+        const token = signToken(_id);
 
         res.cookie("access_token", token, { maxAge: 3600 * 1000, httpOnly: true, sameSite: true });
 
@@ -71,31 +71,31 @@ module.exports = {
         return res.status(200).json({ success: true, user: { email: "", role: "" } })
     },
 
-    getAllUsers:function(req,res){
-        userModel.find({},(err,users)=>{
-    if(err){
-        res.json({message:'error get all users'+err, data:null,status:500})
-    }
-    else{
-        res.json({message:'all users in system',size:users.length, data:users,status:200})
-    
-    }
-        })
-    },
-    getUserById:function(req,res){
-        userModel.findById({_id:req.params.id})
-        .exec((err,user)=>{
-            if(err){
-                res.json({message:'error get one user'+err, data:null,status:500})
+    getAllUsers: function (req, res) {
+        userModel.find({}, (err, users) => {
+            if (err) {
+                res.json({ message: 'error get all users' + err, data: null, status: 500 })
             }
-            else{
-                res.json({message:' user in system', data:user,status:200})
-    
-            
+            else {
+                res.json({ message: 'all users in system', size: users.length, data: users, status: 200 })
+
             }
         })
     },
-    
+    getUserById: function (req, res) {
+        userModel.findById({ _id: req.params.id })
+            .exec((err, user) => {
+                if (err) {
+                    res.json({ message: 'error get one user' + err, data: null, status: 500 })
+                }
+                else {
+                    res.json({ message: ' user in system', data: user, status: 200 })
+
+
+                }
+            })
+    },
+
     getUserbyRole: function (req, res) {
 
         userModel.findOne({ role: req.params.role }, (err, User) => {
@@ -126,7 +126,7 @@ module.exports = {
             } else {
                 res.status(200).json({
                     message: "user updated successfuly ",
-                    data: user,
+                    data: req.body,
                 });
             }
         });
@@ -153,6 +153,22 @@ module.exports = {
             }
         });
     },
+
+    getme: (req, res) => {
+        userModel.findOne({ _id: req.user._id}, (err, user) => {
+            if (err) {
+                res.status(500).json({
+                    message: 'no userdetails',
+                    data: null
+                })
+            } else {
+                res.status(200).json({
+                    message: 'userdetails',
+                    data: user
+                })
+            }
+        })
+    }
 
 }
 
