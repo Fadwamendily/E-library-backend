@@ -1,4 +1,11 @@
 const mongoose = require('mongoose');
+
+const FileSchema = new mongoose.Schema({
+    name: String,
+    type: String,
+    
+})
+
 const BookSchema = new mongoose.Schema({
 
 
@@ -12,28 +19,27 @@ const BookSchema = new mongoose.Schema({
     },
     image: {
         type: String,
-        default: 'useravatar.png'
+        required: true
+
     },
     publicationDate: {
         type: Date,
         required: true
     },
-    file: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "File"
-    }],
+    file: FileSchema ,
     category: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Categorie"
     },
-    languages: [{
+    language: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "Language"
     }],
-    subject: {
+    user: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Subject"
-    }
+        ref: "User"
+    },
+
 })
 
 module.exports = mongoose.model("Book", BookSchema);

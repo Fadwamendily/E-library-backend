@@ -8,7 +8,7 @@ module.exports = {
             res.json({ message: 'new language created', data: result, statut: 200 });
         } catch (error) {
             console.log(error.message);
-            res.json({ message: 'error', data: Null, statut: 500 });
+            res.json({ message: 'error', data: error, statut: 500 });
         }
     },
 
@@ -43,7 +43,7 @@ module.exports = {
             res.json({ message: 'language deleted', data: result, statut: 200 });
         } catch (error) {
             console.log(error.message);
-            res.json({ message: 'error', data: Null, statut: 500 });
+            res.json({ message: 'error', data: null, statut: 500 });
         }
     },
 
@@ -53,7 +53,7 @@ module.exports = {
             res.json({ message: 'language updated', data: result, statut: 200 });
         } catch (error) {
             console.log(error.message);
-            res.json({ message: 'error', data: Null, statut: 500 });
+            res.json({ message: 'error', data: null, statut: 500 });
         }
     },
     removeallLanguages: async (req, res) => {

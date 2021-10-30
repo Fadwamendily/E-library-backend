@@ -25,11 +25,11 @@ Route.get("/getme", passport.authenticate('jwt', {session: false}),userControlle
 
 //Logout need authenticate first because only authenticated user that can log out.
 Route.get("/logout", passport.authenticate('jwt', {session: false}), userController.logout)
-Route.get('/allUser',userController.getAllUsers)
-Route.get('/getUserbyid/:id',userController.getUserById)
-Route.get('/getUserbyrole/:role',userController.getUserbyRole)
-Route.delete('/deleteUserbyid/:id',userController.deleteUserById)
-Route.put('/updateUserbyid/:id',userController.updateUserById)
-Route.put('/avatar/:id',upload.single("image"),userController.uploadavatar);
+Route.get('/allUser',passport.authenticate('jwt', {session: false}),userController.getAllUsers)
+Route.get('/getUserbyid/:id',passport.authenticate('jwt', {session: false}),userController.getUserById)
+Route.get('/getUserbyrole/:role',passport.authenticate('jwt', {session: false}),userController.getUserbyRole)
+Route.delete('/deleteUserbyid/:id',passport.authenticate('jwt', {session: false}),userController.deleteUserById)
+Route.put('/updateUserbyid/:id',passport.authenticate('jwt', {session: false}),userController.updateUserById)
+Route.put('/avatar/:id',passport.authenticate('jwt', {session: false}),upload.single("image"),userController.uploadavatar);
 
 module.exports = Route;
